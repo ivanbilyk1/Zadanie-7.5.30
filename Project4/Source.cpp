@@ -28,3 +28,7 @@ char random_permutation_cyclic_type(int* perm, int* cyc, float ncyc) {
 
     return 1;
 }
+
+int main() {
+
+}
