@@ -34,4 +34,18 @@ int main() {
     int ncyc = 3;
     int cyc[] = { 3, 2, 5 };
     int* perm = (int*)malloc(n * sizeof(int));
+
+    if (random_permutation_cyclic_type(perm, cyc, ncyc)) {
+        printf("Random Permutation: ");
+        for (int i = 0; i < n; ++i) {
+            printf("%d ", perm[i]);
+        }
+        printf("\n");
+    }
+    else {
+        printf("Error.\n");
+    }
+
+    free(perm);
+    return 0;
 }
