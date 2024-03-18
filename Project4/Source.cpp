@@ -18,4 +18,13 @@ char random_permutation_cyclic_type(int* perm, int* cyc, float ncyc) {
         }
         count += cyc[i];
     }
+
+    for (i = count - 1; i > 0; --i) {
+        j = rand() % (i + 1);
+        k = perm[i];
+        perm[i] = perm[j];
+        perm[j] = k;
+    }
+
+    return 1;
 }
