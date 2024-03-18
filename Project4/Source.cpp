@@ -30,5 +30,8 @@ char random_permutation_cyclic_type(int* perm, int* cyc, float ncyc) {
 }
 
 int main() {
-
+    int n = 10;
+    int ncyc = 3;
+    int cyc[] = { 3, 2, 5 };
+    int* perm = (int*)malloc(n * sizeof(int));
 }
