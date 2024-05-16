@@ -2,15 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-char random_permutation_cyclic_type(int* perm, int* cyc, float ncyc) {
+char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
     int i, j, k;
     int count = 0;
 
     if (perm == NULL || cyc == NULL || ncyc <= 0) {
         return 0;
     }
-
-    srand((unsigned int)time(NULL));
 
     for (i = 0; i < ncyc; ++i) {
         for (j = 0; j < cyc[i]; ++j) {
@@ -19,6 +17,7 @@ char random_permutation_cyclic_type(int* perm, int* cyc, float ncyc) {
         count += cyc[i];
     }
 
+    //Fisher-Yatesov algoritmus
     for (i = count - 1; i > 0; --i) {
         j = rand() % (i + 1);
         k = perm[i];
@@ -30,9 +29,10 @@ char random_permutation_cyclic_type(int* perm, int* cyc, float ncyc) {
 }
 
 int main() {
+    srand((unsigned int)time(NULL));
     int n = 10;
     int ncyc = 3;
-    int cyc[] = { 3, 2, 5 };
+    int cyc[] = { 3, 2, 5};
     int* perm = (int*)malloc(n * sizeof(int));
 
     if (random_permutation_cyclic_type(perm, cyc, ncyc)) {
