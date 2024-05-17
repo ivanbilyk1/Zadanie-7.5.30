@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+int q = 0;
+
 char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
     int i, j, k;
     int count = 0;
@@ -17,6 +19,14 @@ char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
         count += cyc[i];
     }
 
+    for (int i = 0; i < count; ++i) {
+        for (int j = 1; j < count; ++j) {
+            if (perm[i] == perm[i - j]) {
+                perm[i] = 0;
+            }
+        }
+    }
+
     //Fisher-Yatesov algoritmus
     for (i = count - 1; i > 0; --i) {
         j = rand() % (i + 1);
@@ -25,19 +35,40 @@ char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
         perm[j] = k;
     }
 
+    for (int i = 0; i < count; ++i) {
+        if (perm[i] != 0) {
+            q++;
+        }
+    }
+
+    int* perm2 = (int*)malloc(q * sizeof(int));
+
+    int index = 0;
+    for (int i = 0; i < count; ++i) {
+        if (perm[i] != 0) {
+            perm2[index++] = perm[i];
+        }
+    }
+
+    for (int i = 0; i < count; ++i) {
+        perm[i] = perm2[i];
+    }
+
+    free(perm2);
+
     return 1;
 }
 
 int main() {
     srand((unsigned int)time(NULL));
-    int n = 10;
-    int ncyc = 3;
-    int cyc[] = { 3, 2, 5};
+    int n = 32;
+    int ncyc = 6;
+    int cyc[] = {3, 2, 5, 6, 9, 7};
     int* perm = (int*)malloc(n * sizeof(int));
 
     if (random_permutation_cyclic_type(perm, cyc, ncyc)) {
         printf("Random Permutation: ");
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < q; ++i) {
             printf("%d ", perm[i]);
         }
         printf("\n");
