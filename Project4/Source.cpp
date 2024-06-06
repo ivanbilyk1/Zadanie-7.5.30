@@ -10,12 +10,7 @@ char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
         return 0;
     }
 
-    for (j = 0; j < cyc[0]; ++j) {
-        perm[j] = j + 1;
-    }
-    count += cyc[0];
-
-    for (i = 1; i < ncyc; ++i) {
+    for (i = 0; i < ncyc; ++i) {
         for (j = count; j < cyc[i] + count; ++j) {
             perm[j] = j + 1;
         }
