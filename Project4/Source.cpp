@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-int q = 0;
-
 char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
     int i, j, k;
     int count = 0;
@@ -12,19 +10,16 @@ char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
         return 0;
     }
 
-    for (i = 0; i < ncyc; ++i) {
-        for (j = 0; j < cyc[i]; ++j) {
-            perm[j + count] = j + 1;
+    for (j = 0; j < cyc[0]; ++j) {
+        perm[j] = j + 1;
+    }
+    count += cyc[0];
+
+    for (i = 1; i < ncyc; ++i) {
+        for (j = count; j < cyc[i] + count; ++j) {
+            perm[j] = j + 1;
         }
         count += cyc[i];
-    }
-
-    for (int i = 0; i < count; ++i) {
-        for (int j = 1; j < count; ++j) {
-            if (perm[i] == perm[i - j]) {
-                perm[i] = 0;
-            }
-        }
     }
 
     //Fisher-Yatesov algoritmus
@@ -34,27 +29,6 @@ char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
         perm[i] = perm[j];
         perm[j] = k;
     }
-
-    for (int i = 0; i < count; ++i) {
-        if (perm[i] != 0) {
-            q++;
-        }
-    }
-
-    int* perm2 = (int*)malloc(q * sizeof(int));
-
-    int index = 0;
-    for (int i = 0; i < count; ++i) {
-        if (perm[i] != 0) {
-            perm2[index++] = perm[i];
-        }
-    }
-
-    for (int i = 0; i < count; ++i) {
-        perm[i] = perm2[i];
-    }
-
-    free(perm2);
 
     return 1;
 }
@@ -68,7 +42,7 @@ int main() {
 
     if (random_permutation_cyclic_type(perm, cyc, ncyc)) {
         printf("Random Permutation: ");
-        for (int i = 0; i < q; ++i) {
+        for (int i = 0; i < n; ++i) {
             printf("%d ", perm[i]);
         }
         printf("\n");
