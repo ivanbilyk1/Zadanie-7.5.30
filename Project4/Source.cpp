@@ -30,10 +30,13 @@ char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
 
 int main() {
     srand((unsigned int)time(NULL));
-    int n = 32;
+    int i;
+    int n;
     int ncyc = 6;
-    int cyc[] = {3, 2, 5, 6, 9, 7};
+    int cyc[] = {1, 1, 1, 1, 1, 1};
     int* perm = (int*)malloc(n * sizeof(int));
+
+    for(n=0,i=0;i<ncyc;n+=cyc[i++]);
 
     if (random_permutation_cyclic_type(perm, cyc, ncyc)) {
         printf("Random Permutation: ");
