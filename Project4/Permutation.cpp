@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include "Permutation.h"
 
 char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
     int i, j, k;
@@ -28,15 +26,13 @@ char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
     return 1;
 }
 
-int main() {
-    srand((unsigned int)time(NULL));
-    int i;
-    int n;
-    int ncyc = 6;
-    int cyc[] = {1, 1, 1, 1, 1, 1};
+int print(int n, int *cyc, int ncyc) {
     int* perm = (int*)malloc(n * sizeof(int));
 
-    for(n=0,i=0;i<ncyc;n+=cyc[i++]);
+    if (perm == NULL) {
+        printf("Problem alokacie");
+        return 1;
+    }
 
     if (random_permutation_cyclic_type(perm, cyc, ncyc)) {
         printf("Random Permutation: ");
@@ -50,5 +46,4 @@ int main() {
     }
 
     free(perm);
-    return 0;
 }
