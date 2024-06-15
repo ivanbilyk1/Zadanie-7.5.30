@@ -16,12 +16,18 @@ char random_permutation_cyclic_type(int* perm, int* cyc, int ncyc) {
     }
 
     //Fisher-Yatesov algoritmus
-    for (i = count - 1; i > 0; --i) {
-        j = rand() % (i + 1);
-        k = perm[i];
-        perm[i] = perm[j];
-        perm[j] = k;
-    }
+    count = 0;
+    for (i = 0; i < ncyc; ++i) {
+        int start = count;
+        int end = count + cyc[i];
+        count = end;
+        for (j = end - 1; j > start; --j) {
+            k = rand() % (j - start + 1) + start;
+            int temp = perm[j];
+            perm[j] = perm[k];
+            perm[k] = temp;
+        }
+    } 
 
     return 1;
 }
