@@ -6,18 +6,18 @@ TARGET = Permutation.exe
 
 SRCS = main.c Permutation.c
 
-OBJS = $(SRCS.c=.o)
+OBJS = $(SRCS:.c=.o)
 
-all $(TARGET)
+all: $(TARGET)
 
-$(TARGET) $(OBJS)
+$(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-%.o %.c
-	$(CC) $(CFLAGS) -c $ -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-clean
+clean:
 	rm -f $(OBJS) $(TARGET)
 
-run $(TARGET)
-	.$(TARGET)
+run: $(TARGET)
+	./$(TARGET)

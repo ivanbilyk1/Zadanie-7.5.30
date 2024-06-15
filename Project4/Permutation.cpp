@@ -52,4 +52,6 @@ int print(int n, int *cyc, int ncyc) {
     }
 
     free(perm);
+
+    return 1;
 }
